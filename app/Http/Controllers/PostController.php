@@ -41,4 +41,13 @@ class PostController extends Controller
             ->transformWith(new PostTransformer)
             ->toArray();
     }
+
+    public function destroy(SubReddit $sub_reddit, Post $post)
+    {
+        $this->authorize('destroy', $post);
+
+        $post->delete();
+
+        return response(null, 204);
+    }
 }

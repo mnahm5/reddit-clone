@@ -86,6 +86,102 @@
 			]
 		},
 		{
+			"name": "Posts",
+			"description": "",
+			"item": [
+				{
+					"name": "Post store",
+					"request": {
+						"url": "http://reddit-clone.app:8000/api/subreddits/2/posts",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Best Girl\",\n\t\"body\": \"Not your Waifu\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post update",
+					"request": {
+						"url": "http://reddit-clone.app:8000/api/subreddits/2/posts/2",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"body\": \"Believe it\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post delete",
+					"request": {
+						"url": "http://reddit-clone.app:8000/api/subreddits/2/posts/2",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "{{authorization}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "SubReddit",
 			"description": "",
 			"item": [
@@ -213,7 +309,7 @@
 					"name": "SubReddit delete",
 					"request": {
 						"url": "http://reddit-clone.app:8000/api/subreddits/1",
-						"method": "PATCH",
+						"method": "DELETE",
 						"header": [
 							{
 								"key": "Accept",
@@ -233,7 +329,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"Manga\"\n}"
+							"raw": ""
 						},
 						"description": ""
 					},
