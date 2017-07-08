@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdateSubRedditRequest;
 use App\Post;
 use App\SubReddit;
 use App\Transformers\PostTransformer;
@@ -18,6 +19,21 @@ class PostController extends Controller
         $post->user()->associate($request->user());
 
         $sub_reddit->posts()->save($post);
+
+        return fractal()
+            ->item($post)
+            ->parseIncludes(['user'])
+            ->transformWith(new PostTransformer)
+            ->toArray();
+    }
+
+    public function update(UpdateSubRedditRequest $request, SubReddit $sub_reddit, Post $post)
+    {
+        $this->authorize('update', $post);
+
+        $post->title = $request->get('title', $post->title);
+        $post->body = $request->get('body', $post->body);
+        $post->save();
 
         return fractal()
             ->item($post)

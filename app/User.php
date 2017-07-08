@@ -36,4 +36,8 @@ class User extends Authenticatable
     public function ownsSubReddit(SubReddit $sub_reddit) {
         return $this->id === $sub_reddit->user->id;
     }
+
+    public function ownsPost(Post $post) {
+        return $this->id === $post->user->id;
+    }
 }
