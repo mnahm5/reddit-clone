@@ -24,6 +24,15 @@ class SubRedditController extends Controller
             ->toArray();
     }
 
+    public function show(SubReddit $sub_reddit)
+    {
+        return fractal()
+            ->item($sub_reddit)
+            ->parseIncludes(['user', 'posts', 'posts.user'])
+            ->transformWith(new SubRedditTransformer)
+            ->toArray();
+    }
+
     public function store(StoreSubRedditRequest $request)
     {
         $sub_reddit = new SubReddit;
