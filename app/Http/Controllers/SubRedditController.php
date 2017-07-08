@@ -7,9 +7,23 @@ use App\SubReddit;
 use App\Transformers\SubRedditTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreSubRedditRequest;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class SubRedditController extends Controller
 {
+    public function index()
+    {
+        $sub_reddits = SubReddit::latestFirst()->paginate(10);
+        $sub_reddits_collection = $sub_reddits->getCollection();
+
+        return fractal()
+            ->collection($sub_reddits_collection)
+            ->parseIncludes(['user'])
+            ->transformWith(new SubRedditTransformer)
+            ->paginateWith(new IlluminatePaginatorAdapter($sub_reddits))
+            ->toArray();
+    }
+
     public function store(StoreSubRedditRequest $request)
     {
         $sub_reddit = new SubReddit;
