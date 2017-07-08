@@ -25,4 +25,9 @@ Route::group(['prefix' => 'subreddits'], function () {
     Route::post('/', 'SubRedditController@store')->middleware('auth:api');
     Route::patch('/{sub_reddit}', 'SubRedditController@update')->middleware('auth:api');
     Route::delete('/{sub_reddit}', 'SubRedditController@destroy')->middleware('auth:api');
+
+    Route::group(['prefix' => '/{sub_reddit}/posts'], function () {
+        Route::post('/', 'PostController@store')->middleware('auth:api');
+    });
+
 });
