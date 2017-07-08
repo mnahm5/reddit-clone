@@ -23,4 +23,5 @@ Route::group(['prefix' => 'subreddits'], function () {
     Route::get('/', 'SubRedditController@index');
     Route::get('/{sub_reddit}', 'SubRedditController@show');
     Route::post('/', 'SubRedditController@store')->middleware('auth:api');
+    Route::patch('/{sub_reddit}', 'SubRedditController@update')->middleware('auth:api');
 });

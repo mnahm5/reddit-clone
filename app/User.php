@@ -32,4 +32,8 @@ class User extends Authenticatable
     {
         return 'http://www.gravatar.com/avatar/' . md5($this->email) . '?s=45&d=mm';
     }
+
+    public function ownsSubReddit(SubReddit $sub_reddit) {
+        return $this->id === $sub_reddit->user->id;
+    }
 }

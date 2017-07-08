@@ -7,6 +7,7 @@ use App\SubReddit;
 use App\Transformers\SubRedditTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreSubRedditRequest;
+use App\Http\Requests\UpdateSubRedditRequest;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class SubRedditController extends Controller
@@ -46,6 +47,20 @@ class SubRedditController extends Controller
 
         $sub_reddit->save();
         $sub_reddit->posts()->save($post);
+
+        return fractal()
+            ->item($sub_reddit)
+            ->parseIncludes(['user'])
+            ->transformWith(new SubRedditTransformer)
+            ->toArray();
+    }
+
+    public function update(UpdateSubRedditRequest $request, SubReddit $sub_reddit)
+    {
+        $this->authorize('update', $sub_reddit);
+
+        $sub_reddit->title = $request->get('title', $sub_reddit->title);
+        $sub_reddit->save();
 
         return fractal()
             ->item($sub_reddit)
