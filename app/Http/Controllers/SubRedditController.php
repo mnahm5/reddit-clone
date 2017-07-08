@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\SubReddit;
+use App\Transformers\SubRedditTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreSubRedditRequest;
 
@@ -22,5 +23,11 @@ class SubRedditController extends Controller
 
         $sub_reddit->save();
         $sub_reddit->posts()->save($post);
+
+        return fractal()
+            ->item($sub_reddit)
+            ->parseIncludes(['user'])
+            ->transformWith(new SubRedditTransformer)
+            ->toArray();
     }
 }
