@@ -68,4 +68,12 @@ class SubRedditController extends Controller
             ->transformWith(new SubRedditTransformer)
             ->toArray();
     }
+
+    public function destroy(SubReddit $sub_reddit)
+    {
+        $this->authorize('destroy', $sub_reddit);
+        $sub_reddit->delete();
+
+        return response(null, 204);
+    }
 }

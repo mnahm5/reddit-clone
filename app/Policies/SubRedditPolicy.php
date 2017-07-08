@@ -14,4 +14,9 @@ class SubRedditPolicy
     {
         return $user->ownsSubReddit($sub_reddit);
     }
+
+    public function destroy(User $user, SubReddit $sub_reddit)
+    {
+        return $user->ownsSubReddit($sub_reddit);
+    }
 }
