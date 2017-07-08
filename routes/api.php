@@ -18,3 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/register', 'RegisterController@register');
+
+Route::group(['prefix' => 'subreddits'], function () {
+    Route::post('/', 'SubRedditController@store')->middleware('auth:api');
+});
