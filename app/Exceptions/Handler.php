@@ -44,6 +44,26 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($request->expectsJson()) {
+            if ($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
+                return response()->json([
+                    'data' => [
+                        'error' => 'Unauthorized'
+                    ]
+                ], 403);
+            }
+            if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+                $model_class = explode('\\', $exception->getModel());
+                return response()->json([
+                    'data' => [
+                        'error' => end($model_class) . ' not found'
+                    ]
+                ], 404);
+            }
+            if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+                return response(null, 404);
+            }
+        }
         return parent::render($request, $exception);
     }
 
@@ -57,7 +77,11 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
+            return response()->json([
+                'data' => [
+                    'error' => 'Unauthenticated.'
+                ]
+            ], 401);
         }
 
         return redirect()->guest(route('login'));
