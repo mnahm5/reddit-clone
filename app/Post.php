@@ -20,4 +20,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function upVotes()
+    {
+        return $this->morphMany(Upvote::class, 'upVoteAble');
+    }
 }
