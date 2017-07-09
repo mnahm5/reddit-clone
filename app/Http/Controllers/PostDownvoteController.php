@@ -17,6 +17,10 @@ class PostDownvoteController extends Controller
             return response(null, 409);
         }
 
+        if ($request->user()->hasUpvotedPost($post)) {
+            $post->upvotes->where('user_id', $request->user()->id)[0]->delete();
+        }
+
         $downvote = new Downvote;
         $downvote->user()->associate($request->user());
         $post->downvotes()->save($downvote);
