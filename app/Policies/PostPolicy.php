@@ -19,4 +19,9 @@ class PostPolicy
     {
         return $user->ownsPost($post);
     }
+
+    public function upvote(User $user, Post $post)
+    {
+        return !$user->ownsPost($post);
+    }
 }

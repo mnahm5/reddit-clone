@@ -31,6 +31,10 @@ Route::group(['prefix' => 'subreddits'], function () {
         Route::post('/', 'PostController@store')->middleware('auth:api');
         Route::patch('/{post}', 'PostController@update')->middleware('auth:api');
         Route::delete('/{post}', 'PostController@destroy')->middleware('auth:api');
+
+        Route::group(['prefix' => '/{post}'], function () {
+            Route::post('/upvotes', 'PostUpvoteController@store')->middleware('auth:api');
+        });
     });
 
 });
