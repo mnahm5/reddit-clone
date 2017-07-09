@@ -12,7 +12,6 @@ class CommentPolicy
 
     public function update(User $user, Comment $comment)
     {
-        dd($user->id);
         return $user->ownsComment($comment);
     }
 
