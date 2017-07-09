@@ -35,6 +35,10 @@ Route::group(['prefix' => 'subreddits'], function () {
         Route::group(['prefix' => '/{post}'], function () {
             Route::post('/upvotes', 'PostUpvoteController@store')->middleware('auth:api');
         });
+
+        Route::group(['prefix' => '/{post}'], function () {
+            Route::post('/downvotes', 'PostDownvoteController@store')->middleware('auth:api');
+        });
     });
 
 });

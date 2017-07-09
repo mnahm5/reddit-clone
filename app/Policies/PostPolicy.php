@@ -24,4 +24,9 @@ class PostPolicy
     {
         return !$user->ownsPost($post);
     }
+
+    public function downvote(User $user, Post $post)
+    {
+        return !$user->ownsPost($post);
+    }
 }
