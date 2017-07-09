@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Http\Requests\UpdateSubRedditRequest;
 use App\Post;
 use App\SubReddit;
@@ -27,7 +28,7 @@ class PostController extends Controller
             ->toArray();
     }
 
-    public function update(UpdateSubRedditRequest $request, SubReddit $sub_reddit, Post $post)
+    public function update(UpdatePostRequest $request, SubReddit $sub_reddit, Post $post)
     {
         $this->authorize('update', $post);
 

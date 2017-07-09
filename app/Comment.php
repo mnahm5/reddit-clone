@@ -2,28 +2,23 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\Orderable;
+use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Comment extends Model
 {
     use Orderable;
 
-    protected $fillable = ['title', 'body'];
+    protected $fillable = ['body'];
 
-    public function sub_reddit()
+    public function post()
     {
-        return $this->belongsTo(SubReddit::class);
+        return $this->belongsTo(Post::class);
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class)->oldestFirst();
     }
 
     public function upvotes()

@@ -34,10 +34,19 @@ Route::group(['prefix' => 'subreddits'], function () {
 
         Route::group(['prefix' => '/{post}'], function () {
             Route::post('/upvotes', 'PostUpvoteController@store')->middleware('auth:api');
-        });
-
-        Route::group(['prefix' => '/{post}'], function () {
             Route::post('/downvotes', 'PostDownvoteController@store')->middleware('auth:api');
+
+            Route::group(['prefix' => '/comments'], function () {
+                Route::get('/{comment}', 'CommentController@show');
+                Route::post('/', 'CommentController@store')->middleware('auth:api');
+                Route::patch('/{comment}', 'CommentController@update')->middleware('auth:api');
+                Route::delete('/{comment}', 'CommentController@destroy')->middleware('auth:api');
+
+                Route::group(['prefix' => '/{comment}'], function () {
+                    Route::post('/upvotes', 'CommentUpvoteController@store')->middleware('auth:api');
+                    Route::post('/downvotes', 'CommentDownvoteController@store')->middleware('auth:api');
+                });
+            });
         });
     });
 

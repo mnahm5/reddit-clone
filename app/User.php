@@ -52,4 +52,19 @@ class User extends Authenticatable
     {
         return $post->downvotes->where('user_id', $this->id)->count() === 1;
     }
+
+    public function ownsComment(Comment $comment)
+    {
+        return $this->id === $comment->user->id;
+    }
+
+    public function hasUpvotedComment(Comment $comment)
+    {
+        return $comment->upvotes->where('user_id', $this->id)->count() === 1;
+    }
+
+    public function hasDownvotedComment(Comment $comment)
+    {
+        return $comment->downvotes->where('user_id', $this->id)->count() === 1;
+    }
 }
