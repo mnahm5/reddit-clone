@@ -27,6 +27,7 @@ Route::group(['prefix' => 'subreddits'], function () {
     Route::delete('/{sub_reddit}', 'SubRedditController@destroy')->middleware('auth:api');
 
     Route::group(['prefix' => '/{sub_reddit}/posts'], function () {
+        Route::get('/{post}', 'PostController@show');
         Route::post('/', 'PostController@store')->middleware('auth:api');
         Route::patch('/{post}', 'PostController@update')->middleware('auth:api');
         Route::delete('/{post}', 'PostController@destroy')->middleware('auth:api');

@@ -50,4 +50,13 @@ class PostController extends Controller
 
         return response(null, 204);
     }
+
+    public function show(SubReddit $sub_reddit, Post $post)
+    {
+        return fractal()
+            ->item($post)
+            ->parseIncludes(['user', 'upvotes'])
+            ->transformWith(new PostTransformer)
+            ->toArray();
+    }
 }
