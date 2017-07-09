@@ -55,7 +55,7 @@ class PostController extends Controller
     {
         return fractal()
             ->item($post)
-            ->parseIncludes(['user', 'upvotes'])
+            ->parseIncludes(['user', 'upvotes', 'downvotes'])
             ->transformWith(new PostTransformer)
             ->toArray();
     }

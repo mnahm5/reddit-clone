@@ -48,4 +48,8 @@ class User extends Authenticatable
         return $post->upvotes->where('user_id', $this->id)->count() === 1;
     }
 
+    public function hasDownvotedPost(Post $post)
+    {
+        return $post->downvotes->where('user_id', $this->id)->count() === 1;
+    }
 }

@@ -25,4 +25,9 @@ class Post extends Model
     {
         return $this->morphMany(Upvote::class, 'upvoted');
     }
+
+    public function downvotes()
+    {
+        return $this->morphMany(Downvote::class, 'downvoted');
+    }
 }
